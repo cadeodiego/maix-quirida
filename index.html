@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itajaí, a Cidade Maix Quirida — Diagnóstico & Plano de Ação · @itajaiquirida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16295B;          /* azul institucional — base dark */
+    --navy-2:#1E3570;        /* surface dark mais clara */
+    --yellow:#FFD91A;        /* amarelo institucional — destaque */
+    --offwhite:#F9F8F2;      /* off-white — base clara */
+    --surface:#FFFFFF;       /* card claro */
+    --sky:#82D1F9;           /* azul céu claro — afetivo/marítimo */
+    --lime:#C8E25D;          /* verde limão — gastronomia/festa */
+    --orange:#F77B14;        /* laranja — festa/cultura */
+    --orange-deep:#C25A00;   /* laranja escuro p/ texto sobre claro */
+    --ink:#282623;           /* preto suave — texto principal */
+    --ink-70:rgba(40,38,35,.7);
+    --ink-45:rgba(40,38,35,.45);
+    --line:rgba(22,41,91,.16);
+    --line-light:rgba(249,248,242,.18);
+    --maxw:1080px;
+    --display:"Poppins",sans-serif;
+    --body:"Poppins",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--offwhite);color:var(--ink);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--yellow);z-index:100;transition:width .1s linear}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  section{padding:84px 0}
+  .dark{background:var(--navy);color:var(--offwhite)}
+  .dark .eyebrow{color:var(--yellow)}
+  .dark .lead{color:rgba(249,248,242,.8)}
+  .dark .note{color:rgba(249,248,242,.5)}
+
+  .eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-deep);display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+  .eyebrow .coord{color:var(--ink-45);font-weight:500;letter-spacing:.08em}
+  .dark .eyebrow .coord{color:rgba(249,248,242,.45)}
+  .eyebrow .tick{display:inline-block;width:24px;height:2px;background:currentColor;border-radius:2px}
+
+  h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+  h2{font-size:clamp(30px,5vw,52px);margin-bottom:26px}
+  h3{font-size:clamp(21px,2.6vw,28px);margin-bottom:14px;font-weight:700}
+  h4{font-size:18px;font-weight:700;margin-bottom:8px}
+  p{margin-bottom:16px}
+  .lead{font-size:clamp(18px,2.1vw,22px);line-height:1.5;color:var(--ink-70);max-width:790px;font-weight:400}
+  strong{font-weight:600}
+  .accent{color:var(--orange-deep)}
+  .dark .accent{color:var(--yellow)}
+  .muted{color:var(--ink-45)}
+
+  /* ---------- COVER ---------- */
+  .cover{background:var(--navy);color:var(--offwhite);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:48px 0;position:relative;overflow:hidden;isolation:isolate}
+  .cover .grid-bg{position:absolute;inset:0;background-image:radial-gradient(circle at 78% 28%,rgba(255,217,26,.16),transparent 42%),radial-gradient(circle at 12% 88%,rgba(130,209,249,.12),transparent 40%)}
+  .cover .azulejo{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(45deg,var(--offwhite) 25%,transparent 25%,transparent 75%,var(--offwhite) 75%),linear-gradient(45deg,var(--offwhite) 25%,transparent 25%,transparent 75%,var(--offwhite) 75%);background-size:36px 36px;background-position:0 0,18px 18px;mask-image:radial-gradient(circle at 90% 90%,black,transparent 60%)}
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--display);font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(249,248,242,.6);position:relative;z-index:2;gap:16px;flex-wrap:wrap}
+  .cover-mid{position:relative}
+  .brandmark{margin-bottom:26px;text-align:center}
+  .brandmark img{height:104px;width:auto;display:block;max-width:100%;margin:0 auto}
+  .brandmark video{width:min(348px,70%);height:auto;display:block;margin:6px auto 0;mix-blend-mode:screen}
+  @media(max-width:680px){.brandmark img{height:74px}.brandmark video{width:min(270px,76%)}}
+  .cover h1{font-size:clamp(42px,8.5vw,98px);font-weight:800;letter-spacing:-.035em;line-height:.97}
+  .cover h1 em{font-style:normal;color:var(--yellow)}
+  .cover .sub{font-size:clamp(18px,2.3vw,24px);color:rgba(249,248,242,.78);margin-top:24px;max-width:660px;font-weight:400}
+  .cover-bot{display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;font-family:var(--display);font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(249,248,242,.6);gap:16px;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-light);border-radius:100px;padding:8px 16px;font-family:var(--display);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+  .pulse{width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 0 rgba(255,217,26,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,217,26,.5)}70%{box-shadow:0 0 0 9px rgba(255,217,26,0)}100%{box-shadow:0 0 0 0 rgba(255,217,26,0)}}
+
+  /* ---------- PANORAMA / tese ---------- */
+  .tese-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line-light);border:1px solid var(--line-light);border-radius:16px;overflow:hidden;margin-top:8px}
+  .tese-cell{background:var(--navy);padding:28px 26px}
+  .tese-cell .n{font-family:var(--display);font-weight:800;font-size:40px;color:var(--yellow);line-height:1;letter-spacing:-.03em}
+  .tese-cell .k{font-size:14px;color:rgba(249,248,242,.72);margin-top:12px;line-height:1.45}
+
+  /* ---------- cards ---------- */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .stat-n{font-family:var(--display);font-weight:800;font-size:42px;color:var(--orange-deep);letter-spacing:-.03em;line-height:1}
+
+  /* tags É / NÃO É */
+  .tag{display:inline-block;font-family:var(--display);font-weight:500;font-size:13px;letter-spacing:.02em;padding:7px 14px;border-radius:100px;margin:0 6px 8px 0}
+  .tag.is{background:rgba(22,41,91,.1);color:var(--navy)}
+  .tag.isnot{background:rgba(247,123,20,.12);color:var(--orange-deep);text-decoration:line-through;text-decoration-color:rgba(247,123,20,.55)}
+
+  /* ---------- bars ---------- */
+  .bars{margin-top:8px}
+  .bar-row{margin:14px 0}
+  .bar-label{display:flex;justify-content:space-between;font-size:15px;margin-bottom:6px}
+  .bar-label .v{font-weight:700;color:var(--orange-deep)}
+  .dark .bar-label .v{color:var(--yellow)}
+  .bar-track{height:10px;border-radius:100px;background:rgba(22,41,91,.1);overflow:hidden}
+  .dark .bar-track{background:rgba(249,248,242,.14)}
+  .bar-fill{height:100%;border-radius:100px;background:var(--navy)}
+  .dark .bar-fill{background:var(--yellow)}
+
+  /* ---------- split ---------- */
+  .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+  .split .col{border-radius:16px;padding:30px}
+  .col.good{background:rgba(130,209,249,.16);border:1px solid rgba(130,209,249,.5)}
+  .col.build{background:rgba(255,217,26,.16);border:1px solid rgba(255,217,26,.55)}
+  .col.risk{background:rgba(22,41,91,.06);border:1px solid var(--line)}
+  .col h4{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+  .col.good h4{color:#1c6c93}
+  .col.build h4{color:var(--orange-deep)}
+  .col.risk h4{color:var(--navy)}
+  .col ul{list-style:none}
+  .col li{padding:12px 0 12px 28px;position:relative;border-top:1px solid var(--line);font-size:16px}
+  .col li:first-child{border-top:none}
+  .col li::before{position:absolute;left:0;top:12px;font-weight:700;font-size:15px}
+  .col.good li::before{content:"✓";color:#1c6c93}
+  .col.build li::before{content:"+";color:var(--orange-deep)}
+  .col.risk li::before{content:"×";color:var(--navy)}
+
+  /* ---------- matriz CSD ---------- */
+  .csd{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+  .csd .c{border-radius:16px;padding:28px;border:1px solid var(--line);background:var(--surface)}
+  .csd .c.cer{border-color:rgba(130,209,249,.5);background:rgba(130,209,249,.12)}
+  .csd .c.sup{border-color:rgba(255,217,26,.6);background:rgba(255,217,26,.14)}
+  .csd .c h4{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+  .csd .c .sub{font-size:13px;color:var(--ink-45);margin-bottom:16px}
+  .csd .c.cer h4{color:#1c6c93}
+  .csd .c.sup h4{color:var(--orange-deep)}
+  .csd .c.duv h4{color:var(--navy)}
+  .csd ul{list-style:none}
+  .csd li{padding:11px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.45}
+  .csd li:first-child{border-top:none}
+  @media(max-width:760px){.csd{grid-template-columns:1fr}}
+
+  /* ---------- pillars ---------- */
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 28px;display:flex;gap:22px;align-items:flex-start;margin-bottom:14px}
+  .pillar .num{font-family:var(--display);font-size:15px;font-weight:700;color:var(--orange-deep);border:1px solid var(--line);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .pillar .body h4{margin-bottom:4px}
+  .pillar .body p{margin-bottom:0;font-size:16px;color:var(--ink-70)}
+  .pillar.lead-pillar{background:var(--navy);color:var(--offwhite);border-color:var(--navy)}
+  .pillar.lead-pillar .num{color:var(--navy);border-color:var(--yellow);background:var(--yellow)}
+  .pillar.lead-pillar .body p{color:rgba(249,248,242,.82)}
+
+  /* ---------- territórios chips ---------- */
+  .terr{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:32px}
+  .terr .box{border-radius:16px;padding:28px;border:1px solid var(--line)}
+  .terr .box.fis{background:rgba(130,209,249,.12)}
+  .terr .box.cul{background:rgba(200,226,93,.16)}
+  .terr .box h4{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+  .terr .box.fis h4{color:#1c6c93}
+  .terr .box.cul h4{color:#5a7a13}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{font-size:14px;font-weight:500;padding:8px 15px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--navy)}
+  @media(max-width:680px){.terr{grid-template-columns:1fr}}
+
+  /* ---------- tom / peixeirês table ---------- */
+  table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
+  th,td{text-align:left;padding:15px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-45)}
+  td:first-child{font-weight:600;white-space:nowrap}
+  .dose{font-family:var(--display);font-weight:700;font-size:12px;padding:4px 12px;border-radius:100px;white-space:nowrap;letter-spacing:.04em}
+  .d-forte{background:rgba(247,123,20,.16);color:var(--orange-deep)}
+  .d-mod{background:rgba(255,217,26,.22);color:#8a6a00}
+  .d-baixo{background:rgba(22,41,91,.1);color:var(--navy)}
+  .d-zero{background:rgba(40,38,35,.1);color:#5a5650}
+  /* dosagem sobre fundo dark — legibilidade */
+  .dark .d-forte{background:rgba(247,123,20,.24);color:#FFB169}
+  .dark .d-mod{background:rgba(255,217,26,.20);color:var(--yellow)}
+  .dark .d-baixo{background:rgba(130,209,249,.18);color:var(--sky)}
+  .dark .d-zero{background:rgba(249,248,242,.12);color:rgba(249,248,242,.74)}
+
+  /* ---------- funil ---------- */
+  .funnel{margin-top:36px;display:flex;flex-direction:column;gap:13px;align-items:center}
+  .funnel .stage{border-radius:14px;padding:22px 30px;border:none;background:var(--navy);color:var(--offwhite);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .funnel .stage.s1{width:100%}
+  .funnel .stage.s2{width:86%}
+  .funnel .stage.s3{width:72%}
+  .funnel .stage.s4{width:58%;background:var(--yellow);color:var(--navy)}
+  .funnel .stage .lft{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .funnel .stage .step{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+  .funnel .stage.s4 .step{color:var(--orange-deep)}
+  .funnel .stage .nm{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--offwhite)}
+  .funnel .stage.s4 .nm{color:var(--navy)}
+  .funnel .stage .pil{font-size:13px;color:rgba(249,248,242,.66)}
+  .funnel .stage.s4 .pil{color:rgba(22,41,91,.7)}
+  .funnel .stage .kpi{font-size:13px;color:rgba(249,248,242,.82);text-align:right;white-space:nowrap;max-width:240px}
+  .funnel .stage.s4 .kpi{color:rgba(22,41,91,.85)}
+  @media(max-width:680px){.funnel .stage{width:100% !important;flex-direction:column;align-items:flex-start}.funnel .stage .kpi{text-align:left}}
+
+  /* ---------- plano fases ---------- */
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+  .phase{border-radius:16px;padding:28px;background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+  .phase h4{color:var(--ink)}
+  .phase .ph{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:6px}
+  .phase h4{margin-bottom:14px;font-size:20px}
+  .phase ul{list-style:none}
+  .phase li{padding:9px 0 9px 22px;position:relative;border-top:1px solid var(--line);font-size:15px;line-height:1.4}
+  .phase li:first-child{border-top:none}
+  .phase li::before{content:"→";position:absolute;left:0;top:9px;color:var(--navy);font-weight:700}
+  @media(max-width:760px){.phases{grid-template-columns:1fr}}
+
+  /* ---------- KPIs ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:32px}
+  .kpi-card{border-radius:16px;padding:26px;background:var(--surface);border:1px solid var(--line)}
+  .kpi-card .lbl{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:10px}
+  .kpi-card p{margin:0;font-size:15px;color:var(--ink-70)}
+
+  /* ---------- steps ---------- */
+  .steps{counter-reset:step;list-style:none;margin-top:10px}
+  .steps li{position:relative;padding:22px 0 22px 64px;border-top:1px solid var(--line-light)}
+  .steps li:first-child{border-top:none}
+  .steps li::before{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;left:0;top:22px;font-family:var(--display);font-weight:700;font-size:13px;color:var(--yellow);border:1px solid var(--line-light);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+  .steps h4{margin-bottom:4px}
+  .steps p{margin-bottom:0;color:rgba(249,248,242,.74);font-size:15px}
+
+  .pull{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.4vw,38px);line-height:1.18;letter-spacing:-.02em;max-width:900px}
+  .pull em{font-style:normal;color:var(--yellow)}
+  .pull.light em{color:var(--orange-deep)}
+
+  .note{font-size:13px;color:var(--ink-45);margin-top:18px}
+
+  footer{background:var(--navy);color:rgba(249,248,242,.6);padding:56px 0;font-family:var(--display);font-weight:500;font-size:12px;letter-spacing:.06em}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;text-transform:uppercase}
+  footer .brand{color:var(--yellow);font-weight:700}
+  footer img{height:38px;width:auto;opacity:.92}
+
+  .callout{background:rgba(255,217,26,.14);border:1px solid rgba(255,217,26,.5);border-radius:16px;padding:26px 30px;margin-top:28px}
+  .callout strong{color:var(--orange-deep)}
+
+  /* ---------- movimento / reveal ---------- */
+  .count{font-variant-numeric:tabular-nums}
+  .cover h1,.cover .sub,.cover .badge{opacity:0;transform:translateY(16px);animation:coverIn .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .cover .badge{animation-delay:.18s}
+  .cover h1{animation-delay:.28s}
+  .cover .sub{animation-delay:.42s}
+  @keyframes coverIn{to{opacity:1;transform:none}}
+  .card,.phase,.kpi-card,.pillar,.csd .c,.terr .box{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+  @media (hover:hover){
+    .pillar:hover,.kpi-card:hover,.csd .c:hover,.terr .box:hover,.phase:hover{transform:translateY(-4px);box-shadow:0 20px 44px -24px rgba(22,41,91,.5)}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    [data-rv]{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.7,.2,1),transform .7s cubic-bezier(.22,.7,.2,1)}
+    [data-rv].in{opacity:1;transform:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cover h1,.cover .sub,.cover .badge{opacity:1;transform:none;animation:none}
+  }
+
+  /* ---------- o sorriso da marca, como assinatura que se desenha ---------- */
+  .smile{display:block;overflow:visible}
+  .smile path{fill:none;stroke:var(--navy);stroke-width:8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .dark .smile path,.cover .smile path{stroke:var(--yellow)}
+  .sec-smile{margin:-6px 0 22px}
+  .cover-smile{margin:20px 0 4px}
+  @media (prefers-reduced-motion:no-preference){
+    .smile path{transition:stroke-dashoffset 1.05s cubic-bezier(.62,0,.2,1)}
+  }
+  .smile.drawn path{stroke-dashoffset:0}
+
+  /* ---------- arquétipos de público ---------- */
+  .arch{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:18px;margin-top:32px}
+  .arch-card{border-radius:16px;padding:26px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--navy);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+  .arch-card.motor{border-top-color:var(--orange)}
+  .arch-card.embaixador{border-top-color:#9cbb2e}
+  .arch-card.desejo{border-top-color:var(--sky)}
+  .arch-card.trade{border-top-color:var(--navy)}
+  @media (hover:hover){.arch-card:hover{transform:translateY(-4px);box-shadow:0 20px 44px -24px rgba(22,41,91,.5)}}
+  .arch-card .role{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-45);margin-bottom:10px}
+  .arch-card h3{font-size:20px;margin-bottom:10px}
+  .arch-card p{font-size:15px;color:var(--ink-70);margin-bottom:16px}
+  .pill-tag{display:inline-block;font-family:var(--display);font-weight:600;font-size:12px;padding:6px 13px;border-radius:100px;background:rgba(22,41,91,.07);color:var(--navy)}
+
+  /* ---------- anatomia de um post ---------- */
+  .anat-grid{display:grid;grid-template-columns:1fr 1.12fr;gap:18px;margin-top:32px;align-items:stretch}
+  @media(max-width:760px){.anat-grid{grid-template-columns:1fr}}
+  .anat-post{background:var(--navy);color:var(--offwhite);border-radius:16px;padding:32px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+  .anat-post .azulej{position:absolute;inset:0;opacity:.06;background-image:linear-gradient(45deg,var(--offwhite) 25%,transparent 25%,transparent 75%,var(--offwhite) 75%),linear-gradient(45deg,var(--offwhite) 25%,transparent 25%,transparent 75%,var(--offwhite) 75%);background-size:30px 30px;background-position:0 0,15px 15px;mask-image:radial-gradient(circle at 88% 88%,black,transparent 62%)}
+  .anat-label{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:18px;position:relative}
+  .anat-headline{font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,30px);line-height:1.16;letter-spacing:-.02em;position:relative}
+  .anat-headline em{font-style:normal;color:var(--yellow)}
+  .anat-fmt{margin-top:18px;font-size:14px;color:rgba(249,248,242,.62);position:relative}
+  .anat-break{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 28px}
+  .anat-row{display:flex;gap:18px;padding:17px 0;border-top:1px solid var(--line);align-items:baseline;flex-wrap:wrap}
+  .anat-row:first-child{border-top:none}
+  .anat-k{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-45);min-width:92px}
+  .anat-v{font-size:16px;color:var(--ink);flex:1;line-height:1.5}
+  .anat-v .chip{margin:0 6px 6px 0;display:inline-block}
+  .anat-doses{display:flex;flex-wrap:wrap;gap:8px}
+
+  /* ---------- ritmo / ideias de cadência ---------- */
+  .cad{margin-top:28px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .cad-row{display:flex;align-items:center;gap:16px;padding:18px 24px;border-top:1px solid var(--line);background:var(--surface);flex-wrap:wrap}
+  .cad-row:first-child{border-top:none}
+  .cad-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+  .cad-pilar{font-family:var(--display);font-weight:700;font-size:16px;color:var(--navy);flex:1;min-width:200px}
+  .cad-freq{font-size:14px;color:var(--ink-70)}
+  .cad-freq b{font-weight:700;color:var(--orange-deep)}
+  .rhythms{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:18px;margin-top:18px}
+  .rhythm{border-radius:16px;padding:24px 26px;border:1px solid var(--line);background:rgba(22,41,91,.03)}
+  .rhythm .rl{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:8px}
+  .rhythm h4{font-size:18px;margin-bottom:6px}
+  .rhythm p{font-size:14px;color:var(--ink-70);margin:0}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="grid-bg"></div>
+  <div class="wrap cover-top">
+    <span>/PLAN · Planejamento Estratégico</span>
+    <span>Conta · @itajaiquirida</span>
+  </div>
+  <div class="wrap cover-mid">
+    <div class="brandmark">
+      <video class="logo-anim" autoplay muted loop playsinline preload="auto" poster="assets-deck/logo-anim/maix-quirida-logo-poster.png" aria-label="Itajaí — A Cidade Maix Quirida">
+        <source src="assets-deck/logo-anim/maix-quirida-logo.mp4" type="video/mp4">
+        <img src="assets-deck/logo-cover-branco.svg" alt="Itajaí — A Cidade Maix Quirida">
+      </video>
+    </div>
+    <div class="badge"><span class="pulse"></span>Diagnóstico & Plano de Conteúdo · Junho 2026</div>
+    <h1 style="margin-top:26px">A marca<br>nasceu. Agora<br><em>ela ganha voz.</em></h1>
+    <p class="sub">Ponto de partida e plano de conteúdo para a página oficial da marca-destino de Itajaí — como começar a transformar orgulho local em alcance, e alcance em desejo de conhecer a cidade.</p>
+  </div>
+  <div class="wrap cover-bot">
+    <span>Marca de destino · SETUR Itajaí</span>
+    <span>Documento estratégico</span>
+  </div>
+</header>
+
+<!-- 00 A TESE -->
+<section class="dark">
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>00 — O ponto de partida <span class="coord">// a tese</span></div>
+    <h2>A marca acaba de nascer. A página é a voz dela.</h2>
+    <p class="lead">A Maix Quirida não é uma campanha de verão — é a marca-destino de Itajaí, construída sobre alma, peixeirês e pertencimento. Agora que ela foi lançada, a @itajaiquirida é onde essa marca passa a viver no dia a dia. O trabalho não é "postar mais": é fazer a página cumprir o papel de despertar orgulho dentro e desejo fora.</p>
+    <div class="tese-grid">
+      <div class="tese-cell"><div class="n">1</div><div class="k">Marca, não campanha — pensada pra durar, não pra uma temporada</div></div>
+      <div class="tese-cell"><div class="n">2</div><div class="k">Vozes complementares — desperta o desejo; @omelhordeitajai entrega o caminho</div></div>
+      <div class="tese-cell"><div class="n">5</div><div class="k">Pilares editoriais que organizam tudo que a página publica</div></div>
+      <div class="tese-cell"><div class="n">11</div><div class="k">Atributos de personalidade que toda peça precisa equilibrar</div></div>
+    </div>
+    <p class="note">Base: manifesto, calibração de tom e territórios simbólicos da marca Maix Quirida (SETUR Itajaí) + proposta de pilares "Itajaí em duas vozes".</p>
+  </div>
+</section>
+
+<!-- 01 O PAPEL DA PÁGINA -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>01 — O papel da página <span class="coord">// no ecossistema</span></div>
+    <h2>A marca do destino — não o guia dele.</h2>
+    <p class="lead">Itajaí fala em duas vozes que não competem, se completam. Entender a função da @itajaiquirida é o que evita que ela vire "mais uma página de turismo" e a torna a assinatura da cidade.</p>
+    <div class="grid-2" style="margin-top:32px;align-items:stretch">
+      <div class="card" style="background:var(--navy);color:var(--offwhite);border-color:var(--navy)">
+        <div style="font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px">A marca do destino · esta página</div>
+        <h3 style="color:var(--offwhite)">@itajaiquirida</h3>
+        <ul style="list-style:none;margin-top:10px;font-size:15px">
+          <li style="padding:8px 0;border-top:1px solid var(--line-light)">Responde "por que amar Itajaí?"</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line-light)">Olhar de cima — identidade e orgulho</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line-light)">Desperta o desejo de conhecer</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line-light)">Tom autoral, emocional, peixeirês</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line-light)">A cidade é a protagonista</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:10px">O guia do destino · página irmã</div>
+        <h3>@omelhordeitajai</h3>
+        <ul style="list-style:none;margin-top:10px;font-size:15px">
+          <li style="padding:8px 0;border-top:1px solid var(--line)">Responde "o que fazer em Itajaí?"</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line)">Olhar de dentro — prático e cotidiano</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line)">Converte desejo em visita e consumo</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line)">Tom curador, amigo, direto</li>
+          <li style="padding:8px 0;border-top:1px solid var(--line)">Os lugares e as pessoas são protagonistas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">A regra de ouro: a Maix Quirida faz <strong>querer</strong> Itajaí; o Melhor diz <strong>onde ir</strong>. Esta página não indica negócio específico nem vira guia prático — esse é território da irmã. Aqui se constrói a marca, o orgulho e a narrativa da cidade.</div>
+  </div>
+</section>
+
+<!-- 02 DIAGNÓSTICO -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>02 — Ponto de partida <span class="coord">// o que temos pra começar</span></div>
+    <h2>A marca nasceu pronta. Agora começa a construção.</h2>
+    <p class="lead">A Maix Quirida já chega com o ativo mais difícil de conquistar: identidade verdadeira. O ponto de partida é forte — o trabalho daqui pra frente é dar método, ritmo e consistência, protegendo a marca enquanto ela cresce.</p>
+    <div class="split" style="margin-top:32px">
+      <div class="col good">
+        <h4>O que já temos</h4>
+        <ul>
+          <li>Posicionamento claro e fonte única de verdade (manifesto)</li>
+          <li>Voz própria e autoral: o peixeirês de Itajaí e a grafia "Maix Quirida" como assinatura da marca</li>
+          <li>Repertório simbólico rico — rio, mar, porto, pesca, herança açoriana</li>
+          <li>Sistema visual definido: azul, amarelo, Poppins, o sorriso da marca</li>
+          <li>Pauta de potência: Marejada, Réveillon, The Ocean Race 2027</li>
+        </ul>
+      </div>
+      <div class="col build">
+        <h4>O que vamos construir</h4>
+        <ul>
+          <li>Ritmo editorial por pilar — publicar com plano, não por impulso</li>
+          <li>O peixeirês como série recorrente, a assinatura do feed</li>
+          <li>Aplicação consistente da identidade visual em toda peça</li>
+          <li>Cross-promotion estruturada com a @omelhordeitajai</li>
+          <li>A leitura das métricas certas, desde o primeiro mês</li>
+        </ul>
+      </div>
+      <div class="col risk">
+        <h4>Cuidados que protegem a marca</h4>
+        <ul>
+          <li>Caricatura: peixeirês exagerado, paródia do sotaque</li>
+          <li>Folclórico raso: pescador/rendeira sem contexto</li>
+          <li>Clichê de praia genérico — igual a qualquer cidade do litoral</li>
+          <li>Tom de promo descartável, sem ambição de marca</li>
+          <li>Regionalismo de fora ("bah", "tchê") — não é de Itajaí</li>
+        </ul>
+      </div>
+    </div>
+    <p class="pull light" style="margin-top:48px">O ponto de partida é raro: marca com alma de verdade.<br><em>O que vem agora é dar a ela ritmo e palco.</em></p>
+  </div>
+</section>
+
+<!-- 03 MATRIZ CSD -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>03 — Matriz CSD <span class="coord">// o que sabemos, achamos e ignoramos</span></div>
+    <h2>Separando o que é fato do que é aposta.</h2>
+    <p class="lead">Honestidade antes de decidir: o que a marca já garante, o que é leitura estratégica a validar e o que ainda precisamos descobrir — inclusive com os números que a página ainda não acompanha.</p>
+    <div class="csd">
+      <div class="c cer">
+        <h4>Certezas</h4>
+        <div class="sub">já garantido pela marca</div>
+        <ul>
+          <li>A marca tem posicionamento, manifesto e tom definidos</li>
+          <li>A grafia "Maix Quirida" e o peixeirês dão à marca uma voz autoral e reconhecível</li>
+          <li>Itajaí tem pautas de potência o ano todo (eventos, porto, mar)</li>
+          <li>O público interno (morador) tem forte vínculo afetivo com a cidade</li>
+        </ul>
+      </div>
+      <div class="c sup">
+        <h4>Suposições</h4>
+        <div class="sub">leitura a validar</div>
+        <ul>
+          <li>Conteúdo de orgulho/peixeirês gera mais compartilhamento</li>
+          <li>O morador é o melhor amplificador do alcance externo</li>
+          <li>Vídeo (Reels) é o formato de maior descoberta também aqui</li>
+          <li>A cross-promotion com o guia beneficia as duas páginas</li>
+        </ul>
+      </div>
+      <div class="c duv">
+        <h4>Dúvidas</h4>
+        <div class="sub">o que precisamos medir</div>
+        <ul>
+          <li>Que alcance os primeiros conteúdos vão gerar — e qual ritmo de publicação se sustenta?</li>
+          <li>Quanto do público é morador vs. turista potencial?</li>
+          <li>Que pilar/territorio mais desperta orgulho e compartilhamento?</li>
+          <li>A página converte interesse em tráfego pro guia e pros eventos?</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">As dúvidas viram a pauta da seção 13 — métricas a acompanhar. Com os Insights da conta em mãos, esta matriz se atualiza com dados reais.</p>
+  </div>
+</section>
+
+<!-- 04 PÚBLICO -->
+<section class="dark">
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>04 — Público <span class="coord">// pra quem a marca fala</span></div>
+    <h2>Duas pontas: quem já ama e quem ainda vai amar.</h2>
+    <p class="lead">A marca precisa funcionar para o morador que sente orgulho e para o visitante que ainda não conhece. A página equilibra as duas — uma alimenta a outra.</p>
+    <div class="grid-2" style="margin-top:32px">
+      <div class="card" style="background:var(--navy-2);border-color:var(--line-light);color:var(--offwhite)">
+        <div style="font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px">Público interno · o motor</div>
+        <h3 style="color:var(--offwhite)">Quem é de Itajaí</h3>
+        <p style="color:rgba(249,248,242,.78);font-size:16px;margin-bottom:0">Morador, trade local, empreendedor, liderança, comunidade. É quem dá orgulho, comenta, compartilha e legitima a marca. Quando o morador se vê na página, ele vira o melhor mídia — leva a marca pra fora de graça.</p>
+      </div>
+      <div class="card" style="background:var(--navy-2);border-color:var(--line-light);color:var(--offwhite)">
+        <div style="font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin-bottom:8px">Público externo · o destino</div>
+        <h3 style="color:var(--offwhite)">Quem ainda vai conhecer</h3>
+        <p style="color:rgba(249,248,242,.78);font-size:16px;margin-bottom:0">Turista regional, estadual, nacional e internacional, visitante de eventos, imprensa, trade e investidor. Pra essa ponta, a marca desperta o desejo e planta Itajaí no mapa — sem soar genérica.</p>
+      </div>
+    </div>
+    <div class="callout" style="background:rgba(130,209,249,.12);border-color:rgba(130,209,249,.4)">A engrenagem: <strong style="color:var(--sky)">orgulho do morador → compartilhamento → alcance em não-seguidores → desejo do turista</strong>. Por isso o pilar "Orgulho de ser daqui" é o coração — ele aciona o amplificador mais barato que existe.</div>
+  </div>
+</section>
+
+<!-- 05 ARQUÉTIPOS DE PÚBLICO -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>05 — Quem está do outro lado <span class="coord">// arquétipos da audiência</span></div>
+    <h2>Quatro pessoas por trás do alcance.</h2>
+    <p class="lead">Marca-destino não fala com uma persona fechada — fala com uma cidade inteira e com quem ainda vai conhecê-la. Estes quatro arquétipos cobrem quem move a página, cada um servido por um pilar. Ponto de partida, a calibrar quando os Insights abrirem.</p>
+    <div class="arch">
+      <div class="arch-card motor">
+        <div class="role">Motor · amplificador</div>
+        <h3>O morador orgulhoso</h3>
+        <p>Quer se ver e se reconhecer na cidade. Quando se vê, compartilha — e leva a marca pra fora de graça. É o público que dá tração orgânica.</p>
+        <span class="pill-tag">Pilar 01 · Orgulho de ser daqui</span>
+      </div>
+      <div class="arch-card embaixador">
+        <div class="role">Embaixador afetivo</div>
+        <h3>O filho da terra que saiu</h3>
+        <p>Mora fora, mas o coração é de Itajaí. Quer matar a saudade e mostrar de onde veio. Espalha a marca em outras praças, com orgulho de origem.</p>
+        <span class="pill-tag">Pilar 04 · Raízes &amp; Pilar 01</span>
+      </div>
+      <div class="arch-card desejo">
+        <div class="role">Desejo · o destino</div>
+        <h3>Quem ainda não conhece</h3>
+        <p>Turista regional, nacional ou de eventos. Quer descobrir e se encantar. Pra essa ponta, a página planta Itajaí no mapa e acende a vontade de vir.</p>
+        <span class="pill-tag">Pilar 02 &amp; 03 · Fôlego e potência</span>
+      </div>
+      <div class="arch-card trade">
+        <div class="role">Autoridade · credibilidade</div>
+        <h3>O trade &amp; o parceiro</h3>
+        <p>Operadora, investidor, imprensa, instituição. Quer dados, reconhecimento e seriedade. Lê a página como prova de que a cidade se leva a sério.</p>
+        <span class="pill-tag">Pilar 05 · Itajaí no mapa</span>
+      </div>
+    </div>
+    <p class="note">Os quatro se alimentam: o morador amplifica, o filho da terra leva pra fora, o turista deseja, o trade legitima. A página equilibra os quatro sem se estreitar em nenhum.</p>
+  </div>
+</section>
+
+<!-- 06 PILARES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>06 — Pilares de conteúdo <span class="coord">// o que a página publica</span></div>
+    <h2>Cinco pilares que organizam toda a comunicação.</h2>
+    <p class="lead">Nenhum post nasce solto. Cada peça serve a um pilar — e juntos eles cobrem orgulho, encanto, potência, profundidade e autoridade, sem a página virar bagunça temática.</p>
+    <div style="margin-top:32px">
+      <div class="pillar lead-pillar">
+        <div class="num">01</div>
+        <div class="body"><h4>Orgulho de ser daqui <span style="font-family:var(--display);font-weight:600;font-size:12px;color:var(--yellow);letter-spacing:.04em">· a alma</span></h4><p>Peixeirês, herança açoriana, gente local, sotaque, o "maix". A assinatura mais autoral da marca — e o motor de compartilhamento do morador.</p></div>
+      </div>
+      <div class="pillar">
+        <div class="num">02</div>
+        <div class="body"><h4>Itajaí de tirar o fôlego</h4><p>Encantamento visual puro: drone, pôr do sol na Brava, mar, navios ao entardecer. O conteúdo que para o feed e gera orgulho de compartilhar.</p></div>
+      </div>
+      <div class="pillar">
+        <div class="num">03</div>
+        <div class="body"><h4>A cidade que acontece</h4><p>Os grandes marcos: Marejada, Réveillon, cruzeiros, porto, The Ocean Race 2027. Narrativa de potência — Itajaí como destino que pulsa, não cidade pequena.</p></div>
+      </div>
+      <div class="pillar">
+        <div class="num">04</div>
+        <div class="body"><h4>Raízes que poucos conhecem</h4><p>História, patrimônio, cultura e identidade açoriana com profundidade. Dá lastro à marca — beleza com substância, não cartão-postal vazio.</p></div>
+      </div>
+      <div class="pillar">
+        <div class="num">05</div>
+        <div class="body"><h4>Itajaí no mapa <span style="font-family:var(--display);font-weight:600;font-size:12px;color:var(--orange-deep);letter-spacing:.04em">· institucional / trade</span></h4><p>Itajaí ocupando lugar próprio no mapa do turismo — dados, reconhecimentos e autoridade que sustentam a marca diante de trade, imprensa e parceiros. Registro "Mais Querida", sóbrio.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 TERRITÓRIOS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>07 — Territórios simbólicos <span class="coord">// o combustível de cada peça</span></div>
+    <h2>Toda peça ancora em dois territórios — um físico, um cultural.</h2>
+    <p class="lead">É o que impede a marca de virar inventário de clichês. A página não lista "mar, navios, pesca" em sequência — ela escolhe e combina, invocando a cidade em vez de ilustrá-la.</p>
+    <div class="terr">
+      <div class="box fis">
+        <h4>Territórios físicos</h4>
+        <div class="chips">
+          <span class="chip">Rio Itajaí-Açu</span>
+          <span class="chip">Mar e praias</span>
+          <span class="chip">Navios e barcos</span>
+          <span class="chip">Pesca e vida costeira</span>
+          <span class="chip">Encontro cidade × água</span>
+        </div>
+      </div>
+      <div class="box cul">
+        <h4>Territórios culturais</h4>
+        <div class="chips">
+          <span class="chip">Peixeirês</span>
+          <span class="chip">Herança açoriana</span>
+          <span class="chip">Hospitalidade</span>
+          <span class="chip">Trabalho e tradição</span>
+          <span class="chip">Festas populares</span>
+          <span class="chip">Gastronomia do mar</span>
+          <span class="chip">Esporte e náutica</span>
+          <span class="chip">Pertencimento</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Regra: pelo menos dois territórios por peça (um de cada coluna). A marca se revela pela combinação, não pelo acúmulo.</p>
+  </div>
+</section>
+
+<!-- 07 TOM & PEIXEIRÊS -->
+<section class="dark">
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>08 — Tom de voz <span class="coord">// a dosagem do peixeirês</span></div>
+    <h2>O peixeirês é tempero, não prato principal.</h2>
+    <p class="lead">A voz é o maior ativo e o maior risco. A regra é dosar por função: pesa no que afirma a marca, recua no que precisa de credibilidade. Toda peça equilibra os 11 atributos — nunca fria, nunca caricata, nunca genérica.</p>
+    <div class="card" style="margin-top:28px;padding:8px 30px;background:var(--navy-2);border-color:var(--line-light)">
+      <table>
+        <thead><tr><th style="color:rgba(249,248,242,.5)">Momento da peça</th><th style="color:rgba(249,248,242,.5)">Dosagem</th><th style="color:rgba(249,248,242,.5)">Por quê</th></tr></thead>
+        <tbody style="color:var(--offwhite)">
+          <tr><td style="border-color:var(--line-light)">Headline / abertura do post</td><td style="border-color:var(--line-light)"><span class="dose d-forte">Forte</span></td><td style="border-color:var(--line-light)">É onde a marca se afirma. "Maix Quirida" pode liderar.</td></tr>
+          <tr><td style="border-color:var(--line-light)">Legenda / corpo narrativo</td><td style="border-color:var(--line-light)"><span class="dose d-mod">Moderado</span></td><td style="border-color:var(--line-light)">Afetivo, mas o leitor precisa entender. Peixeirês pulverizado.</td></tr>
+          <tr><td style="border-color:var(--line-light)">Dado / contexto / institucional</td><td style="border-color:var(--line-light)"><span class="dose d-baixo">Baixo</span></td><td style="border-color:var(--line-light)">Português claro. Regional aqui atrapalha.</td></tr>
+          <tr><td style="border-color:var(--line-light)">Prova / release / trade</td><td style="border-color:var(--line-light)"><span class="dose d-zero">Zero</span></td><td style="border-color:var(--line-light)">Sóbrio. Peixeirês aqui derruba credibilidade.</td></tr>
+          <tr><td>Fecho / CTA / assinatura</td><td><span class="dose d-forte">Forte</span></td><td>Pertencimento puro. Pode ser Maix Quirida em cheio.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:24px;color:rgba(249,248,242,.78);font-size:16px;max-width:820px"><strong style="color:var(--yellow)">Nunca:</strong> caricatura, folclórico raso, infantilização ("cidadezinha"), clichê de coqueiro, regionalismo de fora. <strong style="color:var(--yellow)">Sempre:</strong> "Mais Querida" no institucional/trade, "Maix Quirida" no afetivo e nos fechos.</p>
+  </div>
+</section>
+
+<!-- 09 ANATOMIA DE UM POST -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>09 — Anatomia de um post <span class="coord">// da regra à peça</span></div>
+    <h2>Como um post nasce dentro do método.</h2>
+    <p class="lead">Pra sair do conceito, um exemplo real dissecado. Toda peça atravessa o mesmo caminho: um pilar que lidera, dois territórios que ancoram, e a dosagem de peixeirês calibrada por momento. A engenharia é invisível — o resultado parece natural.</p>
+    <div class="anat-grid">
+      <div class="anat-post">
+        <div class="azulej"></div>
+        <div class="anat-label">A peça · carrossel</div>
+        <div class="anat-headline">"Esse é o meu lugar <em>maix quirido</em> em Itajaí."</div>
+        <div class="anat-fmt">Fotos dos cantos da cidade · convite à marcação do morador</div>
+      </div>
+      <div class="anat-break">
+        <div class="anat-row"><span class="anat-k">Objetivo</span><span class="anat-v">Pertencimento e compartilhamento — o morador se vê e marca o lugar dele.</span></div>
+        <div class="anat-row"><span class="anat-k">Pilar</span><span class="anat-v"><strong>01 · Orgulho de ser daqui</strong> <span class="muted">+ 02 Itajaí de tirar o fôlego</span></span></div>
+        <div class="anat-row"><span class="anat-k">Territórios</span><span class="anat-v"><span class="chip">Mar e praias</span><span class="chip">Pertencimento</span> <span class="muted">— um físico, um cultural</span></span></div>
+        <div class="anat-row"><span class="anat-k">Dosagem</span><span class="anat-v"><span class="anat-doses"><span class="dose d-forte">Headline · forte</span><span class="dose d-mod">Legenda · moderado</span><span class="dose d-forte">Fecho · forte</span></span></span></div>
+      </div>
+    </div>
+    <p class="note">Repare no limite: a peça desperta o pertencimento, mas <strong>não vira guia</strong> — não indica negócio nem dá roteiro. "Onde viver isso" é trabalho da @omelhordeitajai. Aqui se constrói o desejo; lá se entrega o caminho.</p>
+  </div>
+</section>
+
+<!-- 10 FUNIL -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>10 — A jornada da marca <span class="coord">// do encanto ao mapa</span></div>
+    <h2>O funil da marca-destino é diferente: ele abre desejo.</h2>
+    <p class="lead">A @itajaiquirida não converte venda — converte percepção. Sua jornada vai de encantar e dar orgulho (topo largo) até virar autoridade e passar o bastão pro guia, que fecha a conversão prática.</p>
+    <div class="funnel">
+      <div class="stage s1">
+        <div class="lft"><span class="step">Topo · Encantar &amp; alcançar</span><span class="nm">Parar o feed e gerar orgulho</span><span class="pil">Pilares: Itajaí de tirar o fôlego · Orgulho de ser daqui</span></div>
+        <div class="kpi">Alcance em não-seguidores · compartilhamentos</div>
+      </div>
+      <div class="stage s2">
+        <div class="lft"><span class="step">Conexão · Pertencer</span><span class="nm">Morador se reconhece e amplifica</span><span class="pil">Pilar: Orgulho de ser daqui (peixeirês, gente)</span></div>
+        <div class="kpi">Comentários · marcações · UGC do morador</div>
+      </div>
+      <div class="stage s3">
+        <div class="lft"><span class="step">Desejo · Querer Itajaí</span><span class="nm">Turista passa a desejar conhecer</span><span class="pil">Pilares: A cidade que acontece · Raízes</span></div>
+        <div class="kpi">Crescimento de seguidores de fora · salvamentos</div>
+      </div>
+      <div class="stage s4">
+        <div class="lft"><span class="step">Autoridade · Passar o bastão</span><span class="nm">Vira referência e direciona</span><span class="pil">Pilar: Itajaí no mapa · cross com @omelhordeitajai</span></div>
+        <div class="kpi">Tráfego pro guia · trade · eventos</div>
+      </div>
+    </div>
+    <p style="margin-top:30px;color:var(--ink-70);font-size:16px;max-width:820px">No fim do funil, a marca não manda "compre" — ela diz: <em style="font-style:italic;color:var(--orange-deep)">"quer saber onde viver isso? Segue o @omelhordeitajai."</em> As duas páginas viram um ecossistema, não concorrentes.</p>
+  </div>
+</section>
+
+<!-- 09 PLANO DE AÇÃO -->
+<section class="dark">
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>11 — Plano de ação <span class="coord">// 30 · 60 · 90 dias</span></div>
+    <h2>Da marca definida à página com ritmo.</h2>
+    <p class="lead">Três ondas. Primeiro organizar e medir, depois escalar a produção, por fim consolidar autoridade e ecossistema. Cada onda entrega algo concreto.</p>
+    <div class="phases">
+      <div class="phase">
+        <div class="ph">Onda 1 · 0–30 dias</div>
+        <h4>Fundação &amp; medição</h4>
+        <ul>
+          <li>Calendário editorial base por pilar (frequência e ritmo semanal)</li>
+          <li>Guia de voz da página — como escrever legenda por pilar</li>
+          <li>Padronizar identidade visual do feed (azul, amarelo, Poppins, azulejo)</li>
+          <li>Ligar e ler os Insights: definir baseline de alcance e público</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="ph">Onda 2 · 30–60 dias</div>
+        <h4>Produção &amp; escala</h4>
+        <ul>
+          <li>Reels de descoberta e orgulho como formato-motor</li>
+          <li>Série fixa de peixeirês (recorrente, salvável, compartilhável)</li>
+          <li>Cobertura dos marcos da cidade com narrativa de marca</li>
+          <li>Primeiras ações de UGC — repost do morador com curadoria</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="ph">Onda 3 · 60–90 dias</div>
+        <h4>Autoridade &amp; ecossistema</h4>
+        <ul>
+          <li>Cross-promotion deliberada com @omelhordeitajai</li>
+          <li>Conteúdo de "Itajaí no mapa" pra trade e imprensa</li>
+          <li>Pauta antecipada de eventos (Marejada, Réveillon, TOR 2027)</li>
+          <li>Revisão dos dados e recalibração dos pilares pelo que performou</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 RITMO — IDEIAS POSSÍVEIS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>12 — Ritmo de conteúdo <span class="coord">// ideias, não regra</span></div>
+    <h2>Ideias de ritmo — pra calibrar juntos.</h2>
+    <p class="lead">Não é um calendário fechado nem promessa de post por dia. São caminhos possíveis de frequência, organizados pelos pilares, pra começar leve e crescer no passo que a equipe sustentar. O ritmo real se define em conjunto e se ajusta pelos Insights.</p>
+    <div class="callout">Como ler esta seção: são <strong>sugestões de direção</strong>, não compromisso de volume nem de dias fixos. Quantos posts, com que frequência e em quais formatos é decidido caso a caso, conforme a operação.</div>
+    <h3 style="margin-top:42px">Frequência possível por pilar</h3>
+    <div class="cad">
+      <div class="cad-row"><span class="cad-dot" style="background:var(--orange)"></span><span class="cad-pilar">01 · Orgulho de ser daqui</span><span class="cad-freq">pode ser o mais recorrente — <b>peixeirês, gente, UGC do morador</b></span></div>
+      <div class="cad-row"><span class="cad-dot" style="background:var(--sky)"></span><span class="cad-pilar">02 · Itajaí de tirar o fôlego</span><span class="cad-freq">aparições regulares — <b>paisagem, mar, drone</b></span></div>
+      <div class="cad-row"><span class="cad-dot" style="background:#D9A400"></span><span class="cad-pilar">03 · A cidade que acontece</span><span class="cad-freq">conforme a agenda — <b>eventos e marcos</b></span></div>
+      <div class="cad-row"><span class="cad-dot" style="background:#9cbb2e"></span><span class="cad-pilar">04 · Raízes que poucos conhecem</span><span class="cad-freq">pontual e bem produzido — <b>patrimônio, história</b></span></div>
+      <div class="cad-row"><span class="cad-dot" style="background:var(--navy)"></span><span class="cad-pilar">05 · Itajaí no mapa</span><span class="cad-freq">quando houver pauta — <b>trade, institucional</b></span></div>
+    </div>
+    <h3 style="margin-top:42px">Dois ritmos possíveis</h3>
+    <div class="rhythms">
+      <div class="rhythm">
+        <div class="rl">Pra começar</div>
+        <h4>Ritmo enxuto</h4>
+        <p>Poucas peças por semana, foco total em consistência e qualidade. Firmar a voz da marca antes de pensar em escalar volume.</p>
+      </div>
+      <div class="rhythm">
+        <div class="rl">Quando engrenar</div>
+        <h4>Ritmo consistente</h4>
+        <p>Mais frequência distribuída entre os pilares, sempre que a produção sustentar — presença sem virar pressão.</p>
+      </div>
+    </div>
+    <p class="note">Nenhum número aqui é meta contratada — é proposta de direção. O que vira calendário se decide em conjunto, com a capacidade da equipe e os primeiros Insights na mesa.</p>
+  </div>
+</section>
+
+<!-- 13 MÉTRICAS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>13 — Métricas a acompanhar <span class="coord">// como saber se funciona</span></div>
+    <h2>O que medir numa página que vende desejo, não produto.</h2>
+    <p class="lead">A marca-destino não se mede por clique em link. Mede-se por alcance, orgulho e amplificação. Estes são os indicadores pra começar a acompanhar a partir do primeiro mês.</p>
+    <div class="kpis">
+      <div class="kpi-card"><div class="lbl">Alcance &amp; descoberta</div><p>Contas alcançadas, % de não-seguidores e visualizações por formato. Mede o tamanho do topo do funil.</p></div>
+      <div class="kpi-card"><div class="lbl">Orgulho &amp; amplificação</div><p>Compartilhamentos e salvamentos — as métricas que provam que o conteúdo gera orgulho de mostrar.</p></div>
+      <div class="kpi-card"><div class="lbl">Conexão da comunidade</div><p>Comentários, marcações e volume de UGC do morador. Mede o vínculo afetivo virando mídia espontânea.</p></div>
+      <div class="kpi-card"><div class="lbl">Crescimento qualificado</div><p>Novos seguidores e de onde vêm (Itajaí × fora). Mostra se a marca está plantando desejo externo.</p></div>
+      <div class="kpi-card"><div class="lbl">Performance por pilar</div><p>Qual dos 5 pilares mais alcança, salva e converte seguidor. Orienta a recalibração editorial.</p></div>
+      <div class="kpi-card"><div class="lbl">Força do ecossistema</div><p>Tráfego e seguidores trocados com @omelhordeitajai. Mede se as duas vozes se alimentam.</p></div>
+    </div>
+    <p class="note">Sem baseline ainda — estes indicadores começam a ser lidos na Onda 1. Quando você me passar os Insights da @itajaiquirida, encaixo aqui um diagnóstico de performance com números reais, como no deck do @omelhordeitajai.</p>
+  </div>
+</section>
+
+<!-- 11 PRÓXIMOS PASSOS -->
+<section class="dark">
+  <div class="wrap">
+    <div class="eyebrow"><span class="tick"></span>14 — A rota <span class="coord">// próximos passos</span></div>
+    <h2>Por onde começar na próxima semana.</h2>
+    <p class="lead">A marca já está pronta no papel. O trabalho agora é colocá-la em movimento com método. Quatro decisões destravam tudo:</p>
+    <ol class="steps" style="margin-top:24px">
+      <li><h4>Aprovar os 5 pilares como espinha do calendário</h4><p>Validar que toda publicação a partir de agora nasce de um pilar — fim do post por impulso.</p></li>
+      <li><h4>Definir o ritmo semanal por pilar</h4><p>Quantos posts/Reels por semana, e qual pilar lidera cada dia. Sai a frequência, entra a consistência.</p></li>
+      <li><h4>Liberar acesso aos Insights da conta</h4><p>Pra fechar o baseline e transformar a Matriz CSD em diagnóstico de dados reais.</p></li>
+      <li><h4>Alinhar a cross-promotion com @omelhordeitajai</h4><p>Definir os ganchos em que uma página puxa a outra — sem sobreposição, ampliando os dois lados.</p></li>
+    </ol>
+    <p class="pull" style="margin-top:48px">Itajaí não precisa parecer outra cidade pra brilhar.<br><em>Basta ser ela mesma — Maix Quirida, com orgulho.</em></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">/PLAN</span>
+    <span>Diagnóstico &amp; Plano de Conteúdo · Junho 2026 · @itajaiquirida</span>
+    <img src="assets-deck/logo-cover-branco.svg" alt="Itajaí — A Cidade Maix Quirida">
+  </div>
+</footer>
+
+<script>
+  // barra de progresso de leitura
+  const prog=document.getElementById('progress');
+  const onScroll=()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';};
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const hasIO='IntersectionObserver' in window;
+
+  // reveal on scroll com stagger entre irmãos
+  const rvSel='h2,.lead,.card,.col,.csd .c,.pillar,.terr .box,.phase,.kpi-card,.funnel .stage,.tese-cell,table,.callout,.pull,.steps li,.arch-card,.anat-post,.anat-break,.cad-row,.rhythm';
+  const items=[...document.querySelectorAll(rvSel)].filter(el=>!el.closest('.cover'));
+  if(reduce||!hasIO){
+    items.forEach(el=>el.classList.add('in'));
+  }else{
+    items.forEach(el=>el.setAttribute('data-rv',''));
+    const io=new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{
+        if(!e.isIntersecting)return;
+        const el=e.target;
+        const sibs=[...el.parentElement.children].filter(c=>c.hasAttribute('data-rv'));
+        const i=Math.max(0,sibs.indexOf(el));
+        el.style.transitionDelay=(Math.min(i,6)*70)+'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.12});
+    items.forEach(el=>io.observe(el));
+  }
+
+  // contadores nos números da tese
+  const counters=[...document.querySelectorAll('.tese-cell .n')];
+  counters.forEach(el=>el.classList.add('count'));
+  const countUp=(el)=>{
+    const target=parseInt(el.textContent,10);
+    if(isNaN(target))return;
+    if(reduce){el.textContent=target;return;}
+    const dur=1000;let s=null;
+    const tick=(ts)=>{
+      if(s===null)s=ts;
+      const p=Math.min(1,(ts-s)/dur);
+      el.textContent=Math.round((1-Math.pow(1-p,3))*target);
+      if(p<1)requestAnimationFrame(tick);
+    };
+    el.textContent='0';requestAnimationFrame(tick);
+  };
+  if(hasIO&&!reduce){
+    const cio=new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}});
+    },{threshold:.7});
+    counters.forEach(el=>cio.observe(el));
+  }
+
+  // o sorriso da marca — assinatura que se desenha em cada título
+  const smileSVG=(cls,w,h)=>`<svg class="smile ${cls}" viewBox="0 0 120 50" width="${w}" height="${h}" preserveAspectRatio="xMinYMid meet" aria-hidden="true"><path pathLength="1" d="M7 10 Q 60 58 113 10"/></svg>`;
+  const coverH1=document.querySelector('.cover h1');
+  if(coverH1)coverH1.insertAdjacentHTML('afterend',smileSVG('cover-smile',128,38));
+  document.querySelectorAll('section h2').forEach(h2=>h2.insertAdjacentHTML('afterend',smileSVG('sec-smile',58,23)));
+  const draw=el=>el.classList.add('drawn');
+  if(reduce||!hasIO){
+    document.querySelectorAll('.smile').forEach(draw);
+  }else{
+    const cs=document.querySelector('.cover-smile');
+    if(cs)setTimeout(()=>draw(cs),720);
+    const sio=new IntersectionObserver((ents)=>{ents.forEach(e=>{if(e.isIntersecting){draw(e.target);sio.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px',threshold:.55});
+    document.querySelectorAll('.sec-smile').forEach(el=>sio.observe(el));
+  }
+
+  // a animação da logo roda em loop constante (autoplay muted loop)
+  const logoVid=document.querySelector('.logo-anim');
+  if(logoVid){
+    const keepPlaying=()=>{const pr=logoVid.play();if(pr&&pr.catch)pr.catch(()=>{});};
+    keepPlaying();
+    // garante retomada se o navegador pausar ao sair/voltar da aba
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)keepPlaying();});
+  }
+</script>
+</body>
+</html>
